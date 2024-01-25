@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+<!--    app colors-->
+    <color name="blue_drawer_bg_color">#0b8fd9</color>
+    <color name="white_home_bg_color">#fafbfb</color>
+    <color name="search_bar_bg_color">#f7f6f6</color>
+</resources>
