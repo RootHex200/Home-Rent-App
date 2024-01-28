@@ -3,14 +3,182 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white_home_bg_color"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".presentation.HomeActivity">
 
-<!--    header part of homepage-->
-    <TextView
-        android:text="Location"
-        android:textColor="#E3E2E2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--    header part of homepage   -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:padding="0dp"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:layout_marginStart="20dp"
+                        android:text="Location"
+                        android:textSize="20sp"
+                        android:textColor="@color/secondary_text_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/current_location_name"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="20dp"
+                            android:text="Jakarta"
+                            android:textStyle="bold"
+                            android:textSize="22sp"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <ImageButton
+                            android:id="@+id/current_location_change_btn"
+                            android:layout_marginLeft="3dp"
+                            android:src="@drawable/bottom_down"
+                            android:layout_gravity="bottom"
+                            android:layout_width="20dp"
+                            android:layout_height="25dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <!--        notification-->
+                <Space
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"/>
+                <ImageButton
+                    android:id="@+id/notification_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/white_home_bg_color"
+                    android:src="@drawable/notification" />
+            </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="20dp"/>
+            <!--    search button and filter button-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.search.SearchBar
+                    android:backgroundTint="@color/search_bar_bg_color"
+                    android:id="@+id/search_btn"
+                    android:elevation="0dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"/>
+                <ImageButton
+                    android:id="@+id/filter_button"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_shape"
+                    android:src="@drawable/filter"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"/>
+            </LinearLayout>
 
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="10dp"/>
+            <!--    house option list-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginLeft="20dp"
+                android:id="@+id/recyclerview"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="20dp"/>
+            <!--    near see more-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_gravity="start"
+                    android:text="Near from you"
+                    android:textStyle="bold"
+                    android:textSize="22dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <Space
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/near_see_more"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="see more"
+                    android:textColor="@color/secondary_text_color"
+                    android:textSize="18dp" />
+            </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="20dp"/>
+            <!--    near house list-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/house_list_recyclerview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="20dp"/>
+            <!--    best see more-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_gravity="start"
+                    android:text="Best for you   "
+                    android:textStyle="bold"
+                    android:textSize="22dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <Space
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/best_see_more"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="see more"
+                    android:textColor="@color/secondary_text_color"
+                    android:textSize="18dp" />
+            </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="20dp"/>
+
+            <!--    best house list-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:nestedScrollingEnabled="false"
+                android:id="@+id/best_house_list_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

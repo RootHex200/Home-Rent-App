@@ -6,7 +6,9 @@ plugins {
 android {
     namespace = "com.example.homprent"
     compileSdk = 34
-
+    buildFeatures {
+        dataBinding = true
+    }
     defaultConfig {
         applicationId = "com.example.homprent"
         minSdk = 25
