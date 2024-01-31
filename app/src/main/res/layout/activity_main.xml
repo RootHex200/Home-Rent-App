@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".presentation.HomeActivity">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -114,6 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:textColor="@color/black"
                     android:layout_gravity="start"
                     android:text="Near from you"
                     android:textStyle="bold"
@@ -151,6 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:textColor="@color/black"
                     android:layout_gravity="start"
                     android:text="Best for you   "
                     android:textStyle="bold"
@@ -180,5 +182,5 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>
