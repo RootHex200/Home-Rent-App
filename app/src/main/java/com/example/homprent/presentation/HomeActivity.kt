@@ -1,6 +1,5 @@
 package com.example.homprent.presentation
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -13,23 +12,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.view.LayoutInflater
-import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.homprent.Network.ApiClient
 import com.example.homprent.R
 import com.example.homprent.databinding.ActivityMainBinding
+import com.example.homprent.model.data_class.HotelModelClass
 import com.example.homprent.presentation.adapter.BestHouseListviewAdapter
 import com.example.homprent.presentation.adapter.HouseListviewAdapter
 import com.example.homprent.presentation.adapter.OptionButtonAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import java.security.Permissions
+import retrofit2.Call
 import java.util.Locale
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
     lateinit var recyview:RecyclerView
@@ -39,6 +41,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var currentLocation:TextView;
     lateinit var binding:ActivityMainBinding
     lateinit var changelocationbtn:ImageButton
+    lateinit var progressbar:ProgressBar;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -50,6 +53,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
         locationClient=LocationServices.getFusedLocationProviderClient(this)
 
+        progressbar=findViewById(R.id.progressbar)
         currentLocation=findViewById(R.id.current_location_name);
         houselistview=findViewById(R.id.house_list_recyclerview);
         besthouselistview=findViewById(R.id.best_house_list_view);
@@ -59,11 +63,11 @@ class HomeActivity : AppCompatActivity() {
         recyview.adapter=OptionButtonAdapter(option_button)
 
         houselistview.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
-        houselistview.adapter=HouseListviewAdapter();
+
 
         val myLinearLayoutManager=LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         besthouselistview.layoutManager=myLinearLayoutManager
-        besthouselistview.adapter=BestHouseListviewAdapter();
+
 
         changelocationbtn=findViewById(R.id.current_location_change_btn)
         getLocation()
@@ -121,7 +125,9 @@ class HomeActivity : AppCompatActivity() {
                         geocoder.getFromLocation(location.latitude,location.longitude,1)!!;
                     Log.d("location",list.toString())
                     binding.apply {
-                        currentLocationName.text=list[0].latitude.toString()
+                        currentLocationName.text=list[0].locality.toString()
+                        getHotels(list[0].locality.toString().toLowerCase())
+
                     }
 
                 }
@@ -130,4 +136,32 @@ class HomeActivity : AppCompatActivity() {
         }
 
     }
+
+    fun getHotels(locationname:String){
+
+        try {
+            val call=ApiClient.getApiClient().getHotel(locationname)
+            call.enqueue(object : Callback<HotelModelClass> {
+                override fun onResponse(call:Call<HotelModelClass>, response: Response<HotelModelClass>) {
+                    Log.d("response_cumilla",response.toString())
+                    if (response.isSuccessful) {
+                        houselistview.adapter=HouseListviewAdapter(response.body()!!.first().near_place);
+                        besthouselistview.adapter=BestHouseListviewAdapter(response.body()!!.first().best_place);
+                        progressbar.visibility=ProgressBar.INVISIBLE
+
+                    } else {
+                        Log.d("error_response",response.errorBody().toString())
+                        // Handle error
+                    }
+                }
+
+                override fun onFailure(call: Call<HotelModelClass>, t: Throwable) {
+                    Log.d("onFailur",t.toString())
+                }
+            })
+        }catch (e:Exception){
+            Log.d("catch_error",e.toString())
+        }
+    }
 }
+
