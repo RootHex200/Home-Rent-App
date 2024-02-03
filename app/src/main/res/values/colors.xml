@@ -8,4 +8,6 @@
     <color name="white_home_bg_color">#fafbfb</color>
     <color name="search_bar_bg_color">#f7f6f6</color>
     <color name="secondary_text_color">#a4a5a4</color>
+    <color name="gray_deep_color">#C9C9C9</color>
+    <color name="blue_opacity">#82c5e8</color>
 </resources>
