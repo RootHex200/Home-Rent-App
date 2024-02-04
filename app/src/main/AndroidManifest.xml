@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +18,9 @@
         android:theme="@style/Theme.HompRent"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".presentation.Test"
+            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -31,13 +34,13 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="" />
+            android:value="YOUR_API_KEY" />
 
         <activity
-            android:name=".presentation.HomeActivity"
+            android:name=".presentation.DetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.DetailsActivity"
+            android:name=".presentation.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -36,7 +36,6 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp">
                     <ImageView
-                        android:id="@+id/back_arrow"
                         android:layout_gravity="center"
                         android:src="@drawable/arrow_back"
                         android:layout_width="30dp"
@@ -224,6 +223,7 @@
                     android:id="@+id/message_owner"
                     android:layout_gravity="center"
                     app:cardCornerRadius="5dp"
+
                     android:backgroundTint="@color/blue_opacity"
                     android:layout_width="50dp"
                     android:layout_height="50dp">
@@ -297,20 +297,24 @@
                 </LinearLayout>
 
                 <Space
-                    android:layout_width="50dp"
+                    android:layout_width="40dp"
                     android:layout_height="0dp" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/rent_now_btn"
+                    android:background="@drawable/button_shape"
                     android:layout_gravity="center"
-                    android:layout_width="130dp"
-                    android:layout_height="50dp"
-                    android:text="Rent Now"
+                    android:layout_width="140dp"
+                    android:layout_height="60dp"
                     android:textColor="@color/white"
                     android:textSize="20dp"
+                    android:textAllCaps="false"
                     android:textStyle="bold"
-                    android:background="@drawable/button_shape"
-                    android:padding="50dp" />
+                    android:text="Rent Now"
+                    />
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

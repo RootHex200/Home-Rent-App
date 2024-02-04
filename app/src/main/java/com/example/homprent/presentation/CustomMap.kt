@@ -16,8 +16,10 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class CustomMap : Fragment() {
-
+class CustomMap(lat:Double,lng:Double,name:String) : Fragment() {
+    private val lat:Double=lat;
+    private val lng:Double=lng;
+    private val name:String=name;
     private val callback = OnMapReadyCallback { googleMap ->
         /**
          * Manipulates the map once available.
@@ -29,8 +31,8 @@ class CustomMap : Fragment() {
          * user has installed Google Play services and returned to the app.
          */
         Log.d("GoogleMapLogger","Google Logger is here")
-        val sydney = LatLng(23.46600986264029, 91.17932300133897)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        val sydney = LatLng(lat, lng)
+        googleMap.addMarker(MarkerOptions().position(sydney).title(name.toString()))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,16f))
 
 

@@ -145,8 +145,8 @@ class HomeActivity : AppCompatActivity() {
                 override fun onResponse(call:Call<HotelModelClass>, response: Response<HotelModelClass>) {
                     Log.d("response_cumilla",response.toString())
                     if (response.isSuccessful) {
-                        houselistview.adapter=HouseListviewAdapter(response.body()!!.first().near_place);
-                        besthouselistview.adapter=BestHouseListviewAdapter(response.body()!!.first().best_place);
+                        houselistview.adapter=HouseListviewAdapter(response.body()!!.first().near_place,this@HomeActivity);
+                        besthouselistview.adapter=BestHouseListviewAdapter(response.body()!!.first().best_place, this@HomeActivity);
                         progressbar.visibility=ProgressBar.INVISIBLE
 
                     } else {

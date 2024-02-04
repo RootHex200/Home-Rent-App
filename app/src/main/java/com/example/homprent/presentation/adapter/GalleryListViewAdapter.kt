@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homprent.R
+import com.squareup.picasso.Picasso
 
-class GalleryListViewAdapter():RecyclerView.Adapter<GalleryListViewAdapter.GalleryListViewHolder> (){
-
+class GalleryListViewAdapter(image_data:List<String>):RecyclerView.Adapter<GalleryListViewAdapter.GalleryListViewHolder> (){
+    private val imagedata:List<String> = image_data;
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -21,11 +22,11 @@ class GalleryListViewAdapter():RecyclerView.Adapter<GalleryListViewAdapter.Galle
         holder: GalleryListViewAdapter.GalleryListViewHolder,
         position: Int
     ) {
-        holder.gallery_image.setImageResource(R.drawable.house4)
+        Picasso.get().load(imagedata[position]).into(holder.gallery_image)
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return imagedata.size
     }
 
     class GalleryListViewHolder(galleryView:View):RecyclerView.ViewHolder(galleryView) {
