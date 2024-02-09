@@ -1,9 +1,8 @@
-package com.example.homprent.Network
+package com.example.homprent.src.core.network
 
 import android.util.Log
-import com.example.homprent.service.Apiservice
 
-class ApiClient{
+class ApiClient private constructor(){
     companion object{
         var apiservice: Apiservice?=null;
         fun getApiClient(): Apiservice {

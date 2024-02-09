@@ -1,6 +1,6 @@
-package com.example.homprent.model.data_class
+package com.example.homprent.src.feature.homerent.data.model
 
-data class BestPlace(
+data class NearPlace(
     val bathroom: String,
     val bedroom: String,
     val bill: String,

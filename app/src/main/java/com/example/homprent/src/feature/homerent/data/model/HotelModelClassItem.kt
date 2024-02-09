@@ -1,4 +1,4 @@
-package com.example.homprent.model.data_class
+package com.example.homprent.src.feature.homerent.data.model
 
 data class HotelModelClassItem(
     val best_place: List<BestPlace>,

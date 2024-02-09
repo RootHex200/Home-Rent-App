@@ -1,4 +1,4 @@
-package com.example.homprent.presentation.adapter
+package com.example.homprent.src.feature.homerent.presentation.activity.adapter
 
 import android.view.LayoutInflater
 import android.view.View

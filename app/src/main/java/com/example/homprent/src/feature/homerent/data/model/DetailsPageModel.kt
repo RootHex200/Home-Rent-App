@@ -1,4 +1,4 @@
-package com.example.homprent.model.data_class
+package com.example.homprent.src.feature.homerent.data.model
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 @Parcelize

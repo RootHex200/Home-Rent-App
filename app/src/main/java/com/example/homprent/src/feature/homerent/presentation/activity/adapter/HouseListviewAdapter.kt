@@ -1,4 +1,4 @@
-package com.example.homprent.presentation.adapter
+package com.example.homprent.src.feature.homerent.presentation.activity.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -9,10 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homprent.R
-import com.example.homprent.model.data_class.DetailsPageModel
-import com.example.homprent.model.data_class.NearPlace
-import com.example.homprent.presentation.DetailsActivity
-import com.example.homprent.presentation.Test
+import com.example.homprent.src.feature.homerent.data.model.DetailsPageModel
+import com.example.homprent.src.feature.homerent.data.model.NearPlace
+import com.example.homprent.src.feature.homerent.presentation.activity.DetailsActivity
 import com.squareup.picasso.Picasso
 
 class HouseListviewAdapter(near_house:List<NearPlace>,context:Context): RecyclerView.Adapter<HouseListviewAdapter.HouseViewHolder>() {
@@ -45,7 +44,7 @@ class HouseListviewAdapter(near_house:List<NearPlace>,context:Context): Recycler
                 gallery_list = nearhouse[position].galary,
                 location = nearhouse[position].location_url,
                 price = nearhouse[position].bill);
-            val details_intent:Intent= Intent(context,DetailsActivity::class.java)
+            val details_intent:Intent= Intent(context, DetailsActivity::class.java)
             details_intent.putExtra("data",details)
             context.startActivity(details_intent)
         }

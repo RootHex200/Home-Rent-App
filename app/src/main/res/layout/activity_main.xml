@@ -6,7 +6,7 @@
     android:background="@color/white_home_bg_color"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.HomeActivity">
+    tools:context=".src.feature.homerent.presentation.activity.HomeActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

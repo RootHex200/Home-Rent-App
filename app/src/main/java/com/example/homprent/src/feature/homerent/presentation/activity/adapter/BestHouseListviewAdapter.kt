@@ -1,4 +1,4 @@
-package com.example.homprent.presentation.adapter
+package com.example.homprent.src.feature.homerent.presentation.activity.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -11,16 +11,12 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homprent.R
-import com.example.homprent.model.data_class.BestPlace
-import com.example.homprent.model.data_class.DetailsPageModel
-import com.example.homprent.model.data_class.NearPlace
-import com.example.homprent.presentation.DetailsActivity
-import com.example.homprent.presentation.Test
+import com.example.homprent.src.feature.homerent.data.model.BestPlace
+import com.example.homprent.src.feature.homerent.data.model.DetailsPageModel
+import com.example.homprent.src.feature.homerent.presentation.activity.DetailsActivity
 import com.squareup.picasso.Picasso
-import org.w3c.dom.Text
-import java.io.Serializable
 
-class BestHouseListviewAdapter(best_house:List<BestPlace>,context:Context):RecyclerView.Adapter<BestHouseListviewAdapter.BestHouseViewHolder>() {
+class BestHouseListviewAdapter(best_house:List<BestPlace>, context:Context):RecyclerView.Adapter<BestHouseListviewAdapter.BestHouseViewHolder>() {
     private val besthouse:List<BestPlace> = best_house;
     private val context:Context=context;
     override fun onCreateViewHolder(
@@ -42,7 +38,7 @@ class BestHouseListviewAdapter(best_house:List<BestPlace>,context:Context):Recyc
         Picasso.get().load(besthouse[position].hotel_thum_image).into(holder.best_house_image);
 
         holder.itemView.setOnClickListener {
-            val details:DetailsPageModel=DetailsPageModel(
+            val details:DetailsPageModel= DetailsPageModel(
                 house_image = besthouse[position].hotel_thum_image,
                 house_name = besthouse[position].hotel_name,
                 house_details = besthouse[position].description,
@@ -54,7 +50,7 @@ class BestHouseListviewAdapter(best_house:List<BestPlace>,context:Context):Recyc
                 gallery_list = besthouse[position].galary,
                 location = besthouse[position].location_url,
                 price = besthouse[position].bill);
-            val details_intent:Intent= Intent(context,DetailsActivity::class.java)
+            val details_intent:Intent= Intent(context, DetailsActivity::class.java)
             details_intent.putExtra("data",details)
             context.startActivity(details_intent)
         }

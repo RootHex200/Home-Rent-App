@@ -1,4 +1,4 @@
-package com.example.homprent.presentation
+package com.example.homprent.src.feature.homerent.presentation.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -17,21 +17,22 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.homprent.Network.ApiClient
 import com.example.homprent.R
 import com.example.homprent.databinding.ActivityMainBinding
-import com.example.homprent.model.data_class.HotelModelClass
-import com.example.homprent.presentation.adapter.BestHouseListviewAdapter
-import com.example.homprent.presentation.adapter.HouseListviewAdapter
-import com.example.homprent.presentation.adapter.OptionButtonAdapter
+import com.example.homprent.src.core.common.HotelListViewModelFactory
+import com.example.homprent.src.feature.homerent.data.data_source.RemoteDataSourceImpl
+import com.example.homprent.src.feature.homerent.data.repository.HotelRepositoryImpl
+import com.example.homprent.src.feature.homerent.domain.usecase.HotelUseCases
+import com.example.homprent.src.feature.homerent.presentation.activity.adapter.BestHouseListviewAdapter
+import com.example.homprent.src.feature.homerent.presentation.activity.adapter.HouseListviewAdapter
+import com.example.homprent.src.feature.homerent.presentation.activity.adapter.OptionButtonAdapter
+import com.example.homprent.src.feature.homerent.presentation.viewmodel.HotelListViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import retrofit2.Call
 import java.util.Locale
-import retrofit2.Callback
-import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
     lateinit var recyview:RecyclerView
@@ -42,6 +43,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var binding:ActivityMainBinding
     lateinit var changelocationbtn:ImageButton
     lateinit var progressbar:ProgressBar;
+    lateinit var hotelViewModel:HotelListViewModel;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -60,17 +62,35 @@ class HomeActivity : AppCompatActivity() {
         var option_button:ArrayList<String> = arrayListOf("Home","Apartment","Hotel","Villa","SingleRoom");
         recyview=findViewById(R.id.recyclerview);
         recyview.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        recyview.adapter=OptionButtonAdapter(option_button)
+        recyview.adapter= OptionButtonAdapter(option_button)
 
         houselistview.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
 
 
         val myLinearLayoutManager=LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         besthouselistview.layoutManager=myLinearLayoutManager
-
-
         changelocationbtn=findViewById(R.id.current_location_change_btn)
+
+        val usecases:HotelUseCases =  HotelUseCases(HotelRepositoryImpl(RemoteDataSourceImpl()))
+
+        hotelViewModel =ViewModelProviders.of(this,HotelListViewModelFactory(usecases)).get(HotelListViewModel::class.java)
         getLocation()
+
+        hotelViewModel.isLoading.observe(this) { value ->
+            if (value) {
+                progressbar.visibility = ProgressBar.VISIBLE
+            } else {
+                progressbar.visibility = ProgressBar.INVISIBLE
+            }
+        }
+
+        hotelViewModel.nearHotelList.observe(this
+        ) { value -> houselistview.adapter = HouseListviewAdapter(value, this@HomeActivity); }
+
+        hotelViewModel.bestHotelList.observe(this
+        ) { value ->
+            besthouselistview.adapter = BestHouseListviewAdapter(value, this@HomeActivity);
+        }
     }
 
     fun isEnableLocation():Boolean{
@@ -126,7 +146,7 @@ class HomeActivity : AppCompatActivity() {
                     Log.d("location",list.toString())
                     binding.apply {
                         currentLocationName.text=list[0].locality.toString()
-                        getHotels(list[0].locality.toString().toLowerCase())
+                        hotelViewModel.getHotelListData(list[0].locality.toString().toLowerCase())
 
                     }
 
@@ -137,31 +157,5 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    fun getHotels(locationname:String){
-
-        try {
-            val call=ApiClient.getApiClient().getHotel(locationname)
-            call.enqueue(object : Callback<HotelModelClass> {
-                override fun onResponse(call:Call<HotelModelClass>, response: Response<HotelModelClass>) {
-                    Log.d("response_cumilla",response.toString())
-                    if (response.isSuccessful) {
-                        houselistview.adapter=HouseListviewAdapter(response.body()!!.first().near_place,this@HomeActivity);
-                        besthouselistview.adapter=BestHouseListviewAdapter(response.body()!!.first().best_place, this@HomeActivity);
-                        progressbar.visibility=ProgressBar.INVISIBLE
-
-                    } else {
-                        Log.d("error_response",response.errorBody().toString())
-                        // Handle error
-                    }
-                }
-
-                override fun onFailure(call: Call<HotelModelClass>, t: Throwable) {
-                    Log.d("onFailur",t.toString())
-                }
-            })
-        }catch (e:Exception){
-            Log.d("catch_error",e.toString())
-        }
-    }
 }
 

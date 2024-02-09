@@ -1,4 +1,4 @@
-package com.example.homprent.presentation.adapter
+package com.example.homprent.src.feature.homerent.presentation.activity.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context

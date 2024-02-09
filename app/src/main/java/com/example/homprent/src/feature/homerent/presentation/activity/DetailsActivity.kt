@@ -1,4 +1,4 @@
-package com.example.homprent.presentation
+package com.example.homprent.src.feature.homerent.presentation.activity
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,8 +13,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homprent.R
-import com.example.homprent.model.data_class.DetailsPageModel
-import com.example.homprent.presentation.adapter.GalleryListViewAdapter
+import com.example.homprent.src.feature.homerent.data.model.DetailsPageModel
+import com.example.homprent.src.feature.homerent.presentation.activity.adapter.GalleryListViewAdapter
 import com.squareup.picasso.Picasso
 
 
@@ -38,7 +38,8 @@ class DetailsActivity() : AppCompatActivity(){
     }
 
     private fun initialization(){
-        val house_data:DetailsPageModel = intent.getParcelableExtra("data")!!
+        Log.d("DetailsActivity.show","data is here")
+        val house_data: DetailsPageModel = intent.getParcelableExtra("data")!!
         galleryImageList=findViewById(R.id.gallery_recyclerview)
 
         val location=house_data.location.split(",")
@@ -62,10 +63,10 @@ class DetailsActivity() : AppCompatActivity(){
         rent_btn=findViewById(R.id.rent_now_btn);
 
         house_subtitle=findViewById(R.id.house_name_subtitle)
-
-
-        //set value
-
+//
+//
+//        //set value
+//
         house_name.text=house_data.house_name;
         house_subtitle.text=house_data.house_subtitle;
         house_bathroom.text=house_data.bathroom;
@@ -82,14 +83,9 @@ class DetailsActivity() : AppCompatActivity(){
             startActivity(phoneIntent)
         }
 
-        owner_message.setOnClickListener {
-            val phoneIntent:Intent= Intent(Intent.CATEGORY_APP_MESSAGING, Uri.parse("tel:" + house_data.owner_phone.toString()))
-            startActivity(phoneIntent)
-        }
 
         galleryImageList.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        galleryImageList.adapter=GalleryListViewAdapter(house_data.gallery_list)
-//
+        galleryImageList.adapter= GalleryListViewAdapter(house_data.gallery_list)
         house_bill.text=house_data.price
 //
     }

@@ -1,4 +1,4 @@
-package com.example.homprent.Network
+package com.example.homprent.src.core.network
 
 import android.util.Log
 import retrofit2.Retrofit
